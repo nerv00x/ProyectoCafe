@@ -29,20 +29,38 @@
         <div id="formulario">
           <form action="">
             <div class="d-flex align-items-center p-3 my-3 bg-danger-subtle rounded shadow-sm">
-              <div class="input-group mb-3">
-                <span class="input-group-text">Turno</span>
-                <input type="text" class="form-control" placeholder="M/T" aria-label="M/T">
-                <span class="input-group-text">Curso y ciclo</span>
-                <input type="text" class="form-control" placeholder="Curso y ciclo" aria-label="Curso y ciclo">
-                <span class="input-group-text">Modulo</span>
-                <input type="text" class="form-control" placeholder="Modulo" aria-label="Modulo">
-                <span class="input-group-text">Horas</span>
-                <input type="text" class="form-control" placeholder="Horas" aria-label="Horas">
-                <span class="input-group-text">Dist. Semanal</span>
-                <input type="text" class="form-control" placeholder="Dist. Semanal" aria-label="Dist. Semanal">
-                <span class="input-group-text">Aula/Taller</span>
-                <input type="text" class="form-control" placeholder="Aula/Taller" aria-label="Aula/Taller">
-              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"><span class="fw-bold input-group-text">Turno</span></th>
+                    <th scope="col"><span class="fw-bold input-group-text">Curso y ciclo</span></th>
+                    <th scope="col"><span class="fw-bold input-group-text">Modulo</span></th>
+                    <th scope="col"><span class="fw-bold input-group-text">Horas</span></th>
+                    <th scope="col"><span class="fw-bold input-group-text">Dist. Semanal</span></th>
+                    <th scope="col"><span class="fw-bold input-group-text">Aula/Taller</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="text" class="form-control" placeholder="M/T" aria-label="M/T"></td>
+                    <td><input type="text" class="form-control" placeholder="Curso y ciclo" aria-label="Curso y ciclo"></td>
+                    <td><select class="form-select" aria-label="Default select example">
+                      <option selected>Selecionar modulo</option>
+                      <option value="1">DSW</option>
+                      <option value="2">DPL</option>
+                      <option value="3">DEW</option>
+                    </select></td>
+                    <td><input type="text" class="form-control" placeholder="Horas" aria-label="Horas"></td>
+                    <td><select class="form-select" aria-label="Default select example">
+                      <option selected>Selecionar dist. Semanal</option>
+                      <option value="1">1+2+2</option>
+                      <option value="2">3+3+2</option>
+                      <option value="3">3+2+2</option>
+                    </select></td>
+                    <td><input type="text" class="form-control" placeholder="Aula/Taller" aria-label="Aula/Taller"></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div class="d-flex align-items-center p-3 my-3 bg-danger-subtle rounded shadow-sm">
               <div class="input-group mb-3">
