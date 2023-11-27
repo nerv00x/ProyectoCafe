@@ -53,3 +53,46 @@ max-width: 60%;
 #form-img{ 
   height:"70px"
 }
+
+.majada-b-blanco{
+  background-color: #f6f6f6;
+}
+.majada-t-blanco{
+  color: #f6f6f6;
+}
+.majada-b-azul-claro{
+  background-color: #10abc7;
+}
+.majada-t-azul-claro{
+  color: #10abc7;
+}
+.majada-t-azul-oscuro{
+  color: #116bb8;
+}
+.majada-b-azul-oscuro{
+  background-color: #116bb8;
+}
+.majada-t-naranja{
+  color: #ea5d16;
+}
+.majada-b-naranja{
+  background-color: #ea5d16;
+}
+.majada-t-rojo{
+  color: #be1816;
+}
+.majada-b-rojo{
+  background-color: #be1816;
+}
+.majada-t-amarillo{
+  color: #f9c114;
+}
+.majada-b-amarillo{
+  background-color: #f9c114;
+}
+.tabla-width-5{
+  width:5%;
+}
+.tabla-width-15{
+  width:15%;
+}
