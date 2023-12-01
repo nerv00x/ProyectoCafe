@@ -1,99 +1,106 @@
-$(window).scroll(function(){
-    if($(document).scrollTop() > 100){
-      $('nav').addClass('animate');
-    }else{
-      $('nav').removeClass('animate');
+document.addEventListener("DOMContentLoaded", function () {
+  const calcularBtn = document.getElementById("calcular");
+  const horasTotalesElement = document.getElementById("horastotales");
+
+  calcularBtn.addEventListener("click", function () {
+    const tablaInputs = document.querySelectorAll(
+      '#formulario input[type="number"]'
+    );
+    let horasTotales = 0;
+
+    tablaInputs.forEach((input) => {
+      if (!isNaN(parseInt(input.value))) {
+        horasTotales += parseInt(input.value);
+      }
+    });
+
+    horasTotalesElement.textContent = horasTotales;
+
+    // Verificar si se debe mostrar el modal y asignar el color correspondiente
+    const infoModal = new bootstrap.Modal(document.getElementById("infoModal"));
+    if (horasTotales < 18) {
+      infoModal.show();
+      document.getElementById("modalContent").textContent =
+        "Las horas totales son MENORES que 18. Ponte en contacto con el jefe de departamento";
+      horasTotalesElement.classList.remove("text-success");
+      horasTotalesElement.classList.add("text-danger");
+    } else if (horasTotales > 18) {
+      infoModal.show();
+      document.getElementById("modalContent").textContent =
+        "Las horas totales son MAYORES que 18.";
+      horasTotalesElement.classList.remove("text-success");
+      horasTotalesElement.classList.add("text-danger");
+    } else {
+      horasTotalesElement.classList.remove("text-danger");
+      horasTotalesElement.classList.add("text-success");
+    }
+  });
+  const addButton = document.querySelector("#botones button:last-of-type");
+
+  addButton.addEventListener("click", function () {
+    const formulario = document.getElementById("formulario");
+    const tableToClone = formulario.querySelector(".majada-b-amarillo");
+    const newTable = tableToClone.cloneNode(true);
+
+    // Encuentra el elemento después del cual quieres añadir el formulario
+    const horasTotalesElement = document.getElementById("HorasTotal");
+
+    // Inserta el formulario justo después del elemento 'HorasTotales'
+    horasTotalesElement.insertAdjacentElement("afterbegin", newTable);
+  });
+});
+
+
+const selectModulo = document.querySelector('#formulario select[aria-label="Default select example"]');
+
+// URL de la API que proporciona la información de los módulos
+const token = '12|4xId3JlN9TAMwvxI5QIVb8rPw50wDFgMFA1LFPkY6db4ba68';
+const apiUrl = 'http://horariocafe.test/api/modulos';
+
+// Realizar la solicitud a la API
+fetch(apiUrl, {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  },
+})
+  .then((response) => response.json())
+  .then((result) => {
+    const data = result.data; // Acceder al arreglo 'data' en el resultado
+    
+    if (Array.isArray(data) && data.length > 0) {
+      data.forEach((modulo) => {
+        const option = document.createElement("option");
+        option.value = modulo.id;
+        option.textContent = modulo.codigo;
+        selectModulo.appendChild(option);
+      });
+    } else {
+      console.error("El arreglo 'data' está vacío o no contiene elementos");
     }
   })
-
-  function desglosarNumero() {
-    const numero = parseInt(document.getElementById('numeroInput').value);
-    const resultadoElement = document.getElementById('resultado');
-
-    if (numero >= 3 && numero <= 8) {
-      const desgloses = generarDesgloses(numero);
-      resultadoElement.innerHTML = ''; // Limpiar el desplegable antes de añadir nuevos elementos
-
-      if (desgloses.length > 0) {
-        desgloses.forEach(desglose => {
-          const option = document.createElement('option'); // Crear un nuevo elemento option
-          option.text = desglose;
-          resultadoElement.add(option);
-        });
-      } else {
-        const option = document.createElement('option');
-        option.text = 'No hay combinaciones posibles para este número.';
-        resultadoElement.add(option);
-      }
-    } else {
-      const option = document.createElement('option');
-      option.text = 'Por favor, ingrese un número entre 3 y 8.';
-      resultadoElement.add(option);
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const numeroInput = document.getElementById('numeroInput');
-    numeroInput.addEventListener('input', desglosarNumero);
+  .catch((error) => {
+    console.error("Error al obtener datos de la API:", error);
   });
 
 
-
-  const horasTotales = document.querySelector('#horastotales');
-
-  function sumar() {
-      let total = 0;
-      let nodeList = document.querySelectorAll('td input[type="number"]');
-      let inputs = Array.from(nodeList);
-      for (var i = 0; i < inputs.length; i++) {
-          if (!isNaN(parseFloat(inputs[i].value))) {
-              total += parseFloat(inputs[i].value);
-          }
-      }
-      checkHorasTotales(total);
-      horasTotales.textContent = total;
-  };
-  
-  function checkHorasTotales(horastotales) {
-      if (horastotales >18) {
-          if (horasTotales.classList.contains('text-success')) {
-              horasTotales.classList.replace('text-success', 'text-danger');
-          }else{
-              horasTotales.classList.add('text-danger')
-          }
-      }else{
-          if (horasTotales.classList.contains('text-danger')) {
-              horasTotales.classList.replace('text-danger', 'text-success');
-          }else{
-              horasTotales.classList.add('text-success')
-          }
-      }
-  }
+// LLAMADAS A LA API \
 
 
+// const inputTurno = document.querySelector('#formulario input[aria-label="M/T"]');
+// const inputCurso = document.querySelector('#formulario input[aria-label="Curso y ciclo"]');
+
+// const inputHoras = document.querySelector('#formulario input[aria-label="Horas"]');
+// const inputAula = document.querySelector('#formulario input[aria-label="Aula/Taller"]');
+
+// Llenar los campos del formulario con los datos del módulo
+// inputTurno.value = datosModulo.turno;
+// inputCurso.value = datosModulo.curso;
+
+// Puedes establecer el valor seleccionado en el select de módulos según el dato proporcionado por la API
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// inputHoras.value = datosModulo.horas;
+// selectDistancia.value = datosModulo.distancia_semanal;
+// inputAula.value = datosModulo.aula;
